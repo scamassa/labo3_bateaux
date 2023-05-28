@@ -16,6 +16,7 @@ typedef enum {
 struct TaxeAnuelle {
 	int taxeBase;
 	int taxeSpecifique;
+	int taxeAnnuelle;
 };
 
 typedef struct {
