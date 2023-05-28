@@ -4,35 +4,54 @@
 #include <stdint.h>
 
 typedef char *Nom;
-//typedef enum {VOILIER, PECHE, PLAISANCE} type;
 
-struct Plaisance{
-	uint8_t longueurBateau;
-	Nom nomProprietaire;
+typedef enum {
+	VOILIER, MOTEUR
+} Categorie;
+
+typedef enum {
+	PECHE, PLAISANCE
+} SousCategorie;
+
+struct TaxeAnuelle {
+	int taxeBase;
+	int taxeSpecifique;
 };
 
-union PecheOuPlaisance {
-	uint8_t tonnePoisson;
-	struct Plaisance plaisance;
-};
-
-struct Moteur{
-	uint16_t puissanceMoteur;
-	union PecheOuPlaisance pecheOuPlaisance;
-};
-
-union VoilierOuMoteur {
+typedef struct {
 	uint16_t surfaceVoilure;
-	struct Moteur moteur;
-};
+} Voilier;
 
-struct bateau {
+typedef struct {
+	uint8_t tonnePoisson;
+} Peche;
+
+typedef struct {
+	uint8_t longueur;
+	Nom nomProprietaire;
+} Plaisance;
+
+typedef union {
+	Peche peche;
+	Plaisance plaisance;
+} SousSpecificites;
+
+typedef struct {
+	uint16_t puissance;
+	SousSpecificites sousSpecificites;
+	SousCategorie sousCategorie;
+} Moteur;
+
+typedef union {
+	Voilier voilier;
+	Moteur moteur;
+} Specificites;
+
+typedef struct {
 	Nom nom;
-	union VoilierOuMoteur voilierOuMoteur;
-};
-
-struct bateau B1 = {.nom = "test", .voilierOuMoteur.moteur.puissanceMoteur = 2,
-	.voilierOuMoteur.moteur.pecheOuPlaisance.tonnePoisson = 5}; //c'est trop moche
-	// on va changer
+	struct TaxeAnuelle taxeAnuelle;
+	Specificites specificites;
+	Categorie categorie;
+} Bateau;
 
 #endif //LABO3_BATEAUX_BATEAUX_H
