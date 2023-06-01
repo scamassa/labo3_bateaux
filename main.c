@@ -12,6 +12,38 @@ int comparerTaxes(const Bateau* el1, const Bateau el2){
 	return 0;
 };
 
+void afficherBateau(Bateau b){
+	switch (b.categorie) {
+		case VOILIER:
+			printf("nom: %s - taxe annuelle: %d - voilure: %d\n", b.nom, b
+				.taxeAnuelle.taxeAnnuelle, b.specificites.voilier
+						 .surfaceVoilure);
+			break;
+		case MOTEUR:
+			printf("nom: %s - taxe annuelle: %d - puissance: %d - ", b.nom,
+					 b.taxeAnuelle.taxeAnnuelle,
+					 b.specificites.moteur.puissance);
+			switch(b.specificites.moteur.sousCategorie){
+				case PECHE:
+					printf("tonne poisson: %d\n", b
+						.specificites.moteur.sousSpecificites.peche.tonnePoisson);
+					break;
+				case PLAISANCE:
+					printf("longueur: %d - proprietaire: %s\n", b.specificites
+						.moteur.sousSpecificites.plaisance.longueur, b
+								 .specificites.moteur.sousSpecificites.plaisance.nomProprietaire);
+					break;
+				default:
+					printf("\n");
+					break;
+			}
+			break;
+		default:
+			printf("nom: %s\n", b.nom);
+			break;
+	}
+}
+
 int main() {
 	Bateau port[] = {
 		{.nom = "voilier1", .categorie = VOILIER, .specificites.voilier
@@ -44,35 +76,7 @@ int main() {
 
 	//imprimer les bateaux et caracteristiques
 	for(int i = 0; i < sizeof(port)/sizeof(*port); ++i){
-		switch (port[i].categorie) {
-			case VOILIER:
-				printf("nom: %s - taxe annuelle: %d - voilure: %d\n", port[i].nom, port[i]
-							 .taxeAnuelle.taxeAnnuelle, port[i].specificites.voilier
-							 .surfaceVoilure);
-				break;
-			case MOTEUR:
-				printf("nom: %s - taxe annuelle: %d - puissance: %d - ",port[i].nom,
-						 port[i].taxeAnuelle.taxeAnnuelle,
-						 port[i].specificites.moteur.puissance);
-				switch(port[i].specificites.moteur.sousCategorie){
-					case PECHE:
-						printf("tonne poisson: %d\n", port[i]
-						.specificites.moteur.sousSpecificites.peche.tonnePoisson);
-						break;
-					case PLAISANCE:
-						printf("longueur: %d, proprietaire: %s\n", port[i].specificites
-						.moteur.sousSpecificites.plaisance.longueur, port[i]
-						.specificites.moteur.sousSpecificites.plaisance.nomProprietaire);
-						break;
-					default:
-						printf("\n");
-						break;
-				}
-				break;
-			default:
-				printf("nom: %s\n", port[i].nom);
-				break;
-		}
+		afficherBateau(port[i]);
 	}
 
 	return 0;
