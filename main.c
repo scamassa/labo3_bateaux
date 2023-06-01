@@ -44,6 +44,19 @@ void afficherBateau(Bateau b){
 	}
 }
 
+void afficherParType(Bateau port[], int size, Categorie cat, SousCategorie sousCat){
+	int compteurBateaux = 0, somme = 0, moyenne = 0, mediane = 0, ecartType = 0;
+	for(int i = 0; i < size; ++i){
+		if(port[i].categorie == cat && port[i].specificites.moteur.sousCategorie ==
+			sousCat){
+			somme += port[i].taxeAnuelle.taxeAnnuelle;
+			compteurBateaux++;
+		}
+	}
+	moyenne = somme/compteurBateaux;
+	printf("somme: %d - moyenne: %d\n", somme, moyenne);
+}
+
 int main() {
 	Bateau port[] = {
 		{.nom = "voilier1", .categorie = VOILIER, .specificites.voilier
@@ -78,6 +91,14 @@ int main() {
 	for(int i = 0; i < sizeof(port)/sizeof(*port); ++i){
 		afficherBateau(port[i]);
 	}
+
+	//imprimer somme mediane moyenne et ecart-type
+	printf("\nVOILIERS:\n");
+	afficherParType(port, sizeof(port)/sizeof(*port), VOILIER, AUCUN);
+	printf("PECHE:\n");
+	afficherParType(port, sizeof(port)/sizeof(*port), MOTEUR, PECHE);
+	printf("PLAISANCE:\n");
+	afficherParType(port, sizeof(port)/sizeof(*port), MOTEUR, PLAISANCE);
 
 	return 0;
 }

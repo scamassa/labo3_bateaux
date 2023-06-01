@@ -10,7 +10,7 @@ typedef enum {
 } Categorie;
 
 typedef enum {
-	PECHE, PLAISANCE
+	AUCUN, PECHE, PLAISANCE
 } SousCategorie;
 
 struct TaxeAnuelle {
