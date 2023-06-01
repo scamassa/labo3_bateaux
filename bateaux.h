@@ -55,4 +55,6 @@ typedef struct {
 	Categorie categorie;
 } Bateau;
 
+void calculTaxe(Bateau *b);
+
 #endif //LABO3_BATEAUX_BATEAUX_H
